@@ -1,3 +1,5 @@
 .DS_Store
 *.new
 .claude/
+tests/out/
+.letta/settings.local.json

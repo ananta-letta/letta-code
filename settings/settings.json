@@ -21,6 +21,8 @@
       "Edit(/Users/claude/Library/Application Support/Delta/**)",
       "Write(/Users/claude/Library/Preferences/com.zed-industries.delta.plist)",
       "Edit(/Users/claude/Library/Preferences/com.zed-industries.delta.plist)",
+      "Write(/Users/claude/**/.git/**)",
+      "Edit(/Users/claude/**/.git/**)",
       "Read(/Users/claude/.ssh/**)",
       "Grep(/Users/claude/.ssh/**)",
       "Glob(/Users/claude/.ssh/**)",
@@ -38,7 +40,15 @@
       "Read(/Users/claude/.claude.json)",
       "Grep(/Users/claude/.codex/auth.json)",
       "Grep(/Users/claude/.codex-zed/auth.json)",
-      "Grep(/Users/claude/.claude.json)"
+      "Grep(/Users/claude/.claude.json)",
+      "Read(/Users/claude/.letta/lc-local-backend/providers/**)",
+      "Grep(/Users/claude/.letta/lc-local-backend/providers/**)",
+      "Glob(/Users/claude/.letta/lc-local-backend/providers/**)",
+      "ListDir(/Users/claude/.letta/lc-local-backend/providers/**)",
+      "Read(/Users/claude/.letta/lc-local-backend/secrets/**)",
+      "Grep(/Users/claude/.letta/lc-local-backend/secrets/**)",
+      "Glob(/Users/claude/.letta/lc-local-backend/secrets/**)",
+      "ListDir(/Users/claude/.letta/lc-local-backend/secrets/**)"
     ]
   }
 }

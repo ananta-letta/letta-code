@@ -1,0 +1,5 @@
+# >>> letta-code home (source: /Users/claude/letta-code/settings/zshenv-block.txt)
+# Letta Code: no self-updates, no usage telemetry, in every shell (also when started as plain `letta`).
+export DISABLE_AUTOUPDATER=1
+export LETTA_CODE_TELEM=0
+# <<< letta-code home

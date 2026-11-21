@@ -12,6 +12,7 @@ is built in (MemFS); no extra memory engine.
 
 | File | What it is |
 |---|---|
+| `settings/rules.py` | Writes the rules (`settings/settings.json`) from short lists |
 | `settings/settings.json` | The rules (deny list) → set into `~/.letta/settings.json` |
 | `settings/letta-code.sh` | Launcher → `~/.local/bin/letta-code` |
 | `settings/zshenv-block.txt` | Self-update off + telemetry off for every shell → `~/.zshenv` |
@@ -28,6 +29,9 @@ is built in (MemFS); no extra memory engine.
 - Git: its file tools can't write into any repo's `.git` folder; it does git in its own repo with `git` commands, and
   its GitHub key only reaches `letta-code-home`. A `git commit` in another repo on this Mac is not stopped by the rules
   (shell command, as above). Repos inside hidden folders (e.g. `~/.codex/.tmp/…`) aren't covered by the `.git` rule.
+- Hidden names: Letta matches rules in a way that skips names starting with a dot, so `settings/rules.py` adds
+  patterns for them. Covered: every hidden file or folder one level deep inside a protected folder, and most two levels
+  deep. Not covered: three hidden folders nested inside one protected folder (proof: `tests/rules-test.mjs`).
 - A Grep or Glob started from a parent folder (e.g. `/Users/claude`) is checked on that folder, not on each file it
   walks through.
 - OpenAI models get a patch tool (`ApplyPatch`) that the path rules do not check. The planned models (DeepSeek,

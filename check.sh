@@ -26,6 +26,7 @@ into_repo() { # prints link targets that sit inside a repo folder /Users/claude/
 links_ok()   { [ -z "$(find $R -path $R/.git -prune -o -type l -print)" ] && [ -z "$(into_repo $H/.letta)" ]; }
 no_secrets() { ! grep -rIlE --exclude-dir=.git '(sk-[A-Za-z0-9_-]{20,}|ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,})' $R; }
 mem_plain()  { [ -z "$(find $R/memory -name .git 2>/dev/null)" ]; }
+rules_ok()   { /Users/claude/.local/node/bin/node $R/tests/rules-test.mjs; }
 git_clean()  { [ -d $R/.git ] && [ -z "$(git -C $R ls-files | grep -E '(^|/)(\.letta/|lc-local-backend|auth\.json|.*\.sqlite.*|.*\.db$)')" ]; }
 
 t "Letta Code installed at its pinned version (pins.txt letta-code)" pinned
@@ -36,6 +37,7 @@ t "launcher ~/.local/bin/letta-code equals source, a real file" launcher
 t "launcher starts the pinned version" launch_ver
 t "installed rules (~/.letta/settings.json permissions.deny) equal source" deny_same
 t "local mode only: no Letta Cloud key or address" local_only
+t "rules cover Zed's folders, hidden files and other repos' .git, hidden names included (tests/rules-test.mjs)" rules_ok
 t "no links in the repo; none from ~/.letta into a repo" links_ok
 t "no keys in the repo's files" no_secrets
 t "memory copies are plain files (no .git inside memory/)" mem_plain

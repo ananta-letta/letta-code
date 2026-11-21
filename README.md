@@ -18,7 +18,7 @@ is built in (MemFS); no extra memory engine.
 | `settings/zshenv-block.txt` | Self-update off + telemetry off for every shell → `~/.zshenv` |
 | `install.sh` | Installs the three above as copies |
 | `check.sh` | Health test |
-| `scripts/backup-memory.sh` | Copies the agents' memory into `memory/` (git) |
+| `scripts/backup-memory.sh` | Optional tool: copies the agents' memory into `memory/`; Letta decides how it backs up its memory |
 | `uninstall.sh --dry-run` | Lists exactly what removal deletes (`FOOTPRINT.md`); deletes nothing in dry-run |
 | `FOOTPRINT.md` | Every path this home owns, and the shared paths it must never delete |
 

@@ -13,8 +13,8 @@ between the `<!-- own -->` and `<!-- shared -->` markers below (one absolute pat
 <!-- /own -->
 
 `~/.letta` holds the settings, the local agents and chats (`lc-local-backend`) and each agent's memory
-(`lc-local-backend/memfs/<agent>/memory`). Run `scripts/backup-memory.sh` and push first: the memory copy in this
-repo's `memory/` folder is what survives (P1).
+(`lc-local-backend/memfs/<agent>/memory`). Letta backs up its own memory (Reg, 2026-11-21); check that it has before
+removal (P1).
 Also removed on removal: the marked block in `/Users/claude/.zshenv` (`# >>> letta-code home` … `# <<< letta-code home`;
 `uninstall.sh --yes` removes those lines only).
 The `~/.local/node` entries come from `npm install -g` of 0.34.62 (2026-11-20); `~/Library` had no Letta entries

@@ -90,8 +90,6 @@ ask t8a "Save this in your memory so you still know it in future conversations: 
 a=$(ask t8b "What is the home test word? Reply with the word only." "${A[@]}")
 in_mem=$(grep -rl --exclude-dir=.git "$W" "$B/memfs/$AG/memory" 2>/dev/null | head -1)
 [[ $a == *"$W"* && -n $in_mem ]] && ok "T8 remembers in a new conversation; stored in its memory (${in_mem#$B/})" || bad "T8 memory: answer '$a', in memory files: ${in_mem:-no}"
-bash "$R/scripts/backup-memory.sh" >/dev/null
-grep -rq "$W" "$R/memory/$AG" 2>/dev/null && ok "T8 memory copied into its repo (memory/<agent>)" || bad "T8 memory not copied into its repo"
 
 # T9: does its own git: commits and pushes letta-code-home with the GitHub key Reg gave it (stored its own way, Reg 2026-11-21)
 if ! git -C "$R" remote get-url origin >/dev/null 2>&1; then

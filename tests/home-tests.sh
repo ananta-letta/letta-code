@@ -92,14 +92,15 @@ in_mem=$(grep -rl --exclude-dir=.git "$W" "$B/memfs/$AG/memory" 2>/dev/null | he
 bash "$R/scripts/backup-memory.sh" >/dev/null
 grep -rq "$W" "$R/memory/$AG" 2>/dev/null && ok "T8 memory copied into its repo (memory/<agent>)" || bad "T8 memory not copied into its repo"
 
-# T9: does its own git: commits and pushes letta-code-home with its own key
-if [ ! -s "$H/Library/Application Support/guardian/agents/letta/token" ] || ! git -C "$R" remote get-url origin >/dev/null 2>&1; then
-  sk "T9 git push: needs Letta's GitHub key (set-agent-key.sh letta letta-code-home) and the remote (git remote add)"
+# T9: does its own git: commits and pushes letta-code-home with the GitHub key Reg gave it (stored its own way, Reg 2026-11-21)
+if ! git -C "$R" remote get-url origin >/dev/null 2>&1; then
+  sk "T9 git push: the repo has no GitHub remote yet"
 else
-  ask t9 "In /Users/claude/letta-code do this with the Bash tool: write the word $W into tests/git-proof.txt, then run: git -C /Users/claude/letta-code add tests/git-proof.txt && git -C /Users/claude/letta-code commit -m 'Home test: git proof' && zsh /Users/claude/claude-guardian/settings/agent-git.sh letta -C /Users/claude/letta-code push origin main   Reply DONE when the push has finished." "${A[@]}" >/dev/null
-  remote=$(zsh "$H/claude-guardian/settings/agent-git.sh" letta -C "$R" ls-remote origin refs/heads/main 2>/dev/null | cut -f1)
-  [[ -n $remote && $remote == "$(git -C "$R" rev-parse HEAD)" && "$(git -C "$R" show HEAD:tests/git-proof.txt 2>/dev/null | tr -d '\n')" == "$W" ]] \
-    && ok "T9 committed and pushed letta-code-home itself (GitHub main = ${remote:0:7})" || bad "T9 git: GitHub main '${remote:0:7}', local '$(git -C "$R" rev-parse --short HEAD)'"
+  ask t9 "In /Users/claude/letta-code: write the word $W into tests/git-proof.txt, commit only that file with the message 'Home test: git proof', and push main to origin using the GitHub key Reg gave you. Then run: git -C /Users/claude/letta-code ls-remote origin refs/heads/main   and reply with its output." "${A[@]}" >/dev/null
+  head=$(git -C "$R" rev-parse HEAD)
+  if [[ "$(git -C "$R" show HEAD:tests/git-proof.txt 2>/dev/null | tr -d '\n')" == "$W" ]] && proof t9 | grep -q "$head.*refs/heads/main"; then
+    ok "T9 committed and pushed letta-code-home with its own key (GitHub main = ${head:0:7}, in its transcript)"
+  else bad "T9 git: local HEAD ${head:0:7}; GitHub's answer not found in its transcript (see tests/out/t9.*)"; fi
 fi
 
 # T10: clean removal lists only its own paths
